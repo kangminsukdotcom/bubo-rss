@@ -3,4 +3,27 @@
 body{max-width:41rem;margin:3rem auto;padding:0 1.2rem 4rem;background:var(--paper);color:var(--ink);font-size:1.05rem;line-height:1.6;
 font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 overflow-wrap:anywhere}
-a{color:var(--link);text-underline-offset:.18em}h1 a{color:inherit;text-decoration:none}h1{font-size:2.2rem;line-height:1.2;margin:0}header p{margin:.4rem 0 1.4rem}header{border-bottom:1px solid var(--line);padding-bottom:1rem}h2{margin-bottom:.6rem}summary{cursor:pointer}ol,ul{list-style:none;padding:0}ol li{margin:1.15rem 0}small{display:block;color:var(--muted)}ul li{margin:.45rem 0}
+a{color:var(--link);text-underline-offset:.18em}h1 a{color:inherit;text-decoration:none}h1{font-size:2.2rem;line-height:1.2;margin:0}header p{margin:.4rem 0 1.4rem}header{border-bottom:1px solid var(--line);padding-bottom:1rem}h2{margin-bottom:.6rem}summary{cursor:pointer}ol{list-style:decimal;padding-inline-start:3ch}ol li{margin:1.15rem 0}small{display:block;color:var(--muted)}
+
+ol li::marker { color: var(--muted); font-variant-numeric: tabular-nums; }
+.authors {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: .75rem 0 1.25rem;
+  border-block-start: 1px solid var(--line);
+  border-inline-start: 1px solid var(--line);
+}
+.authors li {
+  flex: 1 0 auto;
+  border-inline-end: 1px solid var(--line);
+  border-block-end: 1px solid var(--line);
+  text-align: center;
+}
+.authors a {
+  display: block;
+  padding: .45rem .8rem;
+  text-decoration: none;
+}
+.authors a:hover, .authors a:focus-visible { text-decoration: underline; }

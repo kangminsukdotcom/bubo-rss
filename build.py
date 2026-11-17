@@ -68,7 +68,8 @@ def listing(rows):
     result = []
     for date, title, link, url, name in rows:
         day = datetime.fromtimestamp(date, KST).strftime('%Y-%m-%d')
-        result.append(f'<li>{anchor(link,title)}<small><time>{day}</time> · {anchor(author(url),name)}</small></li>')
+        domain = urlsplit(url).hostname
+        result.append(f'<li>{anchor(link,title)}<small><time>{day}</time> · {anchor(author(url),name)} · {anchor("https://" + domain,domain)}</small></li>')
     return '<ol>' + ''.join(result) + '</ol>' if result else '<p>아직 수집된 글이 없습니다.</p>'
 
 
@@ -99,7 +100,7 @@ def main():
         blogs.append((name, anchor(author(url),name)))
     directory = ''.join(f'<li>{a}</li>' for _,a in sorted(blogs))
     (OUT / "blogs" / "index.html").unlink(missing_ok=True)
-    page("", "피드", '<h2>피드</h2><details><summary>작성자별로 보기</summary><ul>'+directory+'</ul></details>'+listing(sorted(all_posts.values(), reverse=True)[:50]))
+    page("", "피드", '<h2>피드</h2><details><summary>작성자별로 보기</summary><ul class="authors">'+directory+'</ul></details>'+listing(sorted(all_posts.values(), reverse=True)[:50]))
     (OUT/"style.css").write_bytes(Path("style.css").read_bytes())
     (OUT/"CNAME").write_text("blogs.jagunbae.com\n")
     CACHE.write_text(json.dumps({u:saved[u] for u in authors if u in saved}, ensure_ascii=False,indent=1)+'\n')
