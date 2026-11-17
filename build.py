@@ -64,7 +64,7 @@ def page(path, title, content, updated_at):
 <title>{escape(title)} · 글 쓰는 블로그</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/style.css?v={STYLE_VERSION}">
-<header><h1><a href="/">글 쓰는 블로그</a></h1><p><a href="https://jagunbae.com">작은배</a>가 소개합니다.</p>
+<header><h1><a href="/">글 쓰는 블로그</a></h1><p><a href="https://jagunbae.com">작은배</a>가 모은 글 쓰는 이웃들.</p>
 </header><main>{content}</main>
 <footer>마지막 업데이트: <time datetime="{updated_at.isoformat()}">{updated_label}</time><p>문의나 제안이 있다면 언제든 <a href="https://letterbird.co/kang">이메일 주세요</a>.</p></footer></html>''')
 
