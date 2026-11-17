@@ -24,13 +24,13 @@ jobs:
       - uses: actions/cache/restore@v4
         with:
           path: snapshot.json
-          key: feeds-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: feeds-
+          key: feeds-v2-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: feeds-v2-
       - run: python3 build.py
       - uses: actions/cache/save@v4
         with:
           path: snapshot.json
-          key: feeds-${{ github.run_id }}-${{ github.run_attempt }}
+          key: feeds-v2-${{ github.run_id }}-${{ github.run_attempt }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
