@@ -49,6 +49,12 @@ def anchor(url, label):
 
 
 def page(path, title, content, updated_at):
+    period = "오전" if updated_at.hour < 12 else "오후"
+    hour = updated_at.hour % 12 or 12
+    updated_label = (
+        f"{updated_at.year}년 {updated_at.month}월 {updated_at.day}일 "
+        f"{period} {hour}시 {updated_at.minute:02d}분 {updated_at.second:02d}초"
+    )
     file = OUT / path / "index.html"
     file.parent.mkdir(parents=True, exist_ok=True)
     file.write_text(f'''<!doctype html>
@@ -58,7 +64,7 @@ def page(path, title, content, updated_at):
 <link rel="stylesheet" href="/style.css">
 <header><h1><a href="/">글 쓰는 블로그</a></h1><p><a href="https://jagunbae.com">작은배</a>가 소개합니다.</p>
 </header><main>{content}</main>
-<footer>Last Updated On: <time datetime="{updated_at.isoformat()}">{updated_at.strftime('%A, %B %d, %Y at %I:%M:%S %p')}</time></footer></html>''')
+<footer>마지막 업데이트: <time datetime="{updated_at.isoformat()}">{updated_label}</time></footer></html>''')
 
 
 def author(url):
