@@ -1,6 +1,7 @@
 """Build the Korean blog directory from RSS and Atom feeds."""
 import concurrent.futures
 import json
+import hashlib
 import subprocess
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
@@ -12,6 +13,7 @@ from urllib.parse import urljoin, urlsplit
 OUT = Path("public")
 CACHE = Path("snapshot.json")
 KST = timezone(timedelta(hours=9))
+STYLE_VERSION = hashlib.sha256(Path("style.css").read_bytes()).hexdigest()[:12]
 
 
 def fetch(url):
@@ -61,7 +63,7 @@ def page(path, title, content, updated_at):
 <html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)} · 글 쓰는 블로그</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v={STYLE_VERSION}">
 <header><h1><a href="/">글 쓰는 블로그</a></h1><p><a href="https://jagunbae.com">작은배</a>가 소개합니다.</p>
 </header><main>{content}</main>
 <footer>마지막 업데이트: <time datetime="{updated_at.isoformat()}">{updated_label}</time></footer></html>''')
