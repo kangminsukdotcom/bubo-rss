@@ -15,7 +15,10 @@ KST = timezone(timedelta(hours=9))
 
 
 def fetch(url):
-    data = subprocess.check_output(["curl", "-fsSL", "--max-time", "30", "--retry", "1", url])
+    data = subprocess.check_output([
+        "curl", "-fsSL", "--user-agent", "JagunbaeFeeds/1.0 (+https://blogs.jagunbae.com/)",
+        "--max-time", "30", "--retry", "1", url,
+    ])
     root = ET.fromstring(data)
     for el in root.iter():
         el.tag = el.tag.split("}")[-1]
