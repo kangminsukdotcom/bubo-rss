@@ -1,5 +1,5 @@
-:root{color-scheme:light dark;--paper:#fbfaf6;--ink:#27251f;--link:#324d72;--muted:#625f57;--line:#cfcbc0}
-@media(prefers-color-scheme:dark){:root{--paper:#1c1c1a;--ink:#eae7df;--link:#b3cbee;--muted:#b5b1a7;--line:#514e48}}
+:root{color-scheme:light dark;--paper:#fbfaf6;--ink:#27251f;--link:#324d72;--visited:#746b78;--muted:#625f57;--line:#cfcbc0}
+@media(prefers-color-scheme:dark){:root{--paper:#1c1c1a;--ink:#eae7df;--link:#b3cbee;--visited:#aaa0af;--muted:#b5b1a7;--line:#514e48}}
 body{max-width:41rem;margin:3rem auto;padding:0 1.2rem 4rem;background:var(--paper);color:var(--ink);font-size:1.05rem;line-height:1.6;
 font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 overflow-wrap:anywhere}
@@ -35,3 +35,5 @@ footer {
   color: var(--muted);
   font-size: .85rem;
 }
+
+ol > li > a:visited { color: var(--visited); }
