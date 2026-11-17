@@ -110,7 +110,7 @@ def main():
         blogs.append((name, anchor(author(url),name)))
     directory = ''.join(f'<li>{a}</li>' for _,a in sorted(blogs))
     (OUT / "blogs" / "index.html").unlink(missing_ok=True)
-    page("", "피드", '<h2>피드</h2><details><summary>작성자별로 보기</summary><ul class="authors">'+directory+'</ul></details>'+listing(sorted(all_posts.values(), reverse=True)[:100]), updated_at)
+    page("", "피드", '<h2>피드</h2><details><summary>블로그 둘러보기</summary><ul class="authors">'+directory+'</ul></details>'+listing(sorted(all_posts.values(), reverse=True)[:100]), updated_at)
     (OUT/"style.css").write_bytes(Path("style.css").read_bytes())
     (OUT/"CNAME").write_text("blogs.jagunbae.com\n")
     CACHE.write_text(json.dumps({u:saved[u] for u in authors if u in saved}, ensure_ascii=False,indent=1)+'\n')
