@@ -1,0 +1,38 @@
+name: Update blogs and deploy
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/cache/restore@v4
+        with:
+          path: snapshot.json
+          key: feeds-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: feeds-
+      - run: python3 build.py
+      - uses: actions/cache/save@v4
+        with:
+          path: snapshot.json
+          key: feeds-${{ github.run_id }}-${{ github.run_attempt }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
+        id: deploy

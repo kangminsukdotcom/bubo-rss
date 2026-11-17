@@ -1,4 +1,1 @@
-node_modules/*
-public/index.html
-dist/*
-.DS_Store
+public/
