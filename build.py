@@ -95,7 +95,7 @@ def main():
         name = authors[url]
         rows = [(*post, url, name) for post in feed["posts"]]
         all_posts.update({row[2]: row for row in rows})
-        page(author(url).strip('/'), name, f'<h2>{escape(name)}</h2><p>{anchor("https://"+urlsplit(url).netloc,"블로그 방문")} · {anchor(url,"RSS")}</p>'+listing(rows))
+        page(author(url).strip('/'), name, f'<h2>{escape(name)}</h2><p>{anchor("https://"+urlsplit(url).netloc,"블로그 링크")} · {anchor(url,"RSS")}</p>'+listing(rows))
         blogs.append((name, anchor(author(url),name)))
     directory = ''.join(f'<li>{a}</li>' for _,a in sorted(blogs))
     (OUT / "blogs" / "index.html").unlink(missing_ok=True)
