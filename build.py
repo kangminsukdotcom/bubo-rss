@@ -70,11 +70,11 @@ def listing(rows):
 
 
 def main():
-    urls = json.loads(Path("feeds.json").read_text())
+    authors = json.loads(Path("feeds.json").read_text())
     saved = json.loads(CACHE.read_text()) if CACHE.exists() else {}
     fresh = 0
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-        jobs = {pool.submit(fetch, url): url for url in urls}
+        jobs = {pool.submit(fetch, url): url for url in authors}
         for job in concurrent.futures.as_completed(jobs):
             url = jobs[job]
             try:
@@ -87,9 +87,9 @@ def main():
         raise RuntimeError("모든 피드 갱신 실패")
     all_posts = {}
     blogs = []
-    for url in urls:
+    for url in authors:
         feed = saved.get(url, {"name": urlsplit(url).hostname, "posts": []})
-        name = feed["name"]
+        name = authors[url]
         rows = [(*post, url, name) for post in feed["posts"]]
         all_posts.update({row[2]: row for row in rows})
         page(author(url).strip('/'), name, f'<h2>{escape(name)}</h2><p>{anchor("https://"+urlsplit(url).netloc,"블로그 방문")} · {anchor(url,"RSS")}</p>'+listing(rows))
@@ -99,7 +99,7 @@ def main():
     page("", "최신 글", '<h2>최신 글</h2><details><summary>작성자별로 보기</summary><ul>'+directory+'</ul></details>'+listing(sorted(all_posts.values(), reverse=True)[:50]))
     (OUT/"style.css").write_bytes(Path("style.css").read_bytes())
     (OUT/"CNAME").write_text("blogs.jagunbae.com\n")
-    CACHE.write_text(json.dumps({u:saved[u] for u in urls if u in saved}, ensure_ascii=False,indent=1)+'\n')
+    CACHE.write_text(json.dumps({u:saved[u] for u in authors if u in saved}, ensure_ascii=False,indent=1)+'\n')
 
 
 if __name__ == "__main__":
