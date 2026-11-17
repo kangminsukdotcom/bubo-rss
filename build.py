@@ -68,8 +68,7 @@ def listing(rows):
     result = []
     for date, title, link, url, name in rows:
         day = datetime.fromtimestamp(date, KST).strftime('%Y-%m-%d')
-        domain = urlsplit(url).hostname
-        result.append(f'<li>{anchor(link,title)}<small><time>{day}</time> · {anchor(author(url),name)} · {anchor("https://" + domain,domain)}</small></li>')
+        result.append(f'<li>{anchor(link,title)}<small><time>{day}</time> · {anchor(author(url),name)}</small></li>')
     return '<ol>' + ''.join(result) + '</ol>' if result else '<p>아직 수집된 글이 없습니다.</p>'
 
 
@@ -93,7 +92,7 @@ def main():
     blogs = []
     for url in authors:
         feed = saved.get(url, {"name": urlsplit(url).hostname, "posts": []})
-        name = "@" + authors[url].lstrip("@")
+        name = authors[url].lstrip("@")
         rows = [(*post, url, name) for post in feed["posts"]]
         all_posts.update({row[2]: row for row in rows})
         page(author(url).strip('/'), name, f'<h2>{escape(name)}</h2><p>{anchor("https://"+urlsplit(url).netloc,"블로그 링크")} · {anchor(url,"RSS")}</p>'+listing(rows))
