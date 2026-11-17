@@ -57,7 +57,7 @@ def page(path, title, content):
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/style.css">
 <header><h1><a href="/">글 쓰는 블로그</a></h1><p><a href="https://jagunbae.com">작은배</a>가 소개합니다.</p>
-<nav><a href="/">최신 글</a> · <a href="/blogs/">블로그 목록</a></nav></header><main>{content}</main></html>''')
+</header><main>{content}</main></html>''')
 
 
 def author(url):
@@ -98,7 +98,7 @@ def main():
         page(author(url).strip('/'), name, f'<h2>{escape(name)}</h2><p>{anchor("https://"+urlsplit(url).netloc,"블로그 방문")} · {anchor(url,"RSS")}</p>'+listing(rows))
         blogs.append((name, anchor(author(url),name)))
     directory = ''.join(f'<li>{a}</li>' for _,a in sorted(blogs))
-    page("blogs", "블로그 목록", '<h2>블로그 목록</h2><ul>'+directory+'</ul>')
+    (OUT / "blogs" / "index.html").unlink(missing_ok=True)
     page("", "최신 글", '<h2>최신 글</h2><details><summary>작성자별로 보기</summary><ul>'+directory+'</ul></details>'+listing(sorted(all_posts.values(), reverse=True)[:50]))
     (OUT/"style.css").write_bytes(Path("style.css").read_bytes())
     (OUT/"CNAME").write_text("blogs.jagunbae.com\n")
