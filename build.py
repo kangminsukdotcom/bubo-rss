@@ -66,7 +66,7 @@ def page(path, title, content, updated_at):
 <link rel="stylesheet" href="/style.css?v={STYLE_VERSION}">
 <header><h1><a href="/">글 쓰는 블로그</a></h1><p><a href="https://jagunbae.com">작은배</a>가 소개합니다.</p>
 </header><main>{content}</main>
-<footer>마지막 업데이트: <time datetime="{updated_at.isoformat()}">{updated_label}</time></footer></html>''')
+<footer>마지막 업데이트: <time datetime="{updated_at.isoformat()}">{updated_label}</time><p>문의나 제안이 있다면 언제든 <a href="https://letterbird.co/kang">이메일 주세요</a>.</p></footer></html>''')
 
 
 def author(url):
