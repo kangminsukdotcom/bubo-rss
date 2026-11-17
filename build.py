@@ -50,7 +50,9 @@ def page(path, title, content):
     file.parent.mkdir(parents=True, exist_ok=True)
     file.write_text(f'''<!doctype html>
 <html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{escape(title)} · 글 쓰는 블로그</title><link rel="stylesheet" href="/style.css">
+<title>{escape(title)} · 글 쓰는 블로그</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="/style.css">
 <header><h1><a href="/">글 쓰는 블로그</a></h1><p><a href="https://jagunbae.com">작은배</a>가 소개합니다.</p>
 <nav><a href="/">최신 글</a> · <a href="/blogs/">블로그 목록</a></nav></header><main>{content}</main></html>''')
 
