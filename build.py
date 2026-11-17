@@ -93,7 +93,7 @@ def main():
     blogs = []
     for url in authors:
         feed = saved.get(url, {"name": urlsplit(url).hostname, "posts": []})
-        name = authors[url]
+        name = "@" + authors[url].lstrip("@")
         rows = [(*post, url, name) for post in feed["posts"]]
         all_posts.update({row[2]: row for row in rows})
         page(author(url).strip('/'), name, f'<h2>{escape(name)}</h2><p>{anchor("https://"+urlsplit(url).netloc,"블로그 링크")} · {anchor(url,"RSS")}</p>'+listing(rows))
