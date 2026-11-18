@@ -77,7 +77,7 @@ def listing(rows):
     result = []
     for date, title, link, url, name in rows:
         day = datetime.fromtimestamp(date, KST).strftime('%Y-%m-%d')
-        result.append(f'<li><span class="post-marker" aria-hidden="true">⚓︎</span>{anchor(link,title)}<small><time>{day}</time> · {anchor(author(url),name)}</small></li>')
+        result.append(f'<li><span class="post-marker" aria-hidden="true">✴︎</span>{anchor(link,title)}<small><time>{day}</time> · {anchor(author(url),name)}</small></li>')
     return '<ol>' + ''.join(result) + '</ol>' if result else '<p>아직 수집된 글이 없습니다.</p>'
 
 
