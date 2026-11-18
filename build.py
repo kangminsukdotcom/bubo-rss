@@ -61,10 +61,10 @@ def page(path, title, content, updated_at):
     file.parent.mkdir(parents=True, exist_ok=True)
     file.write_text(f'''<!doctype html>
 <html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{escape(title)} · 블로그 읽는 시간</title>
+<title>{escape(title)} · 모닥불 ♨️</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/style.css?v={STYLE_VERSION}">
-<header><h1><a href="/">블로그 읽는 시간</a></h1><p><a href="https://jagunbae.com">작은배</a>가 모은 글 쓰는 이웃들.</p>
+<header><h1><a href="/">모닥불 ♨️</a></h1><p><a href="https://jagunbae.com">작은배</a>가 모은 글 쓰는 이웃들.</p>
 </header><main>{content}</main>
 <footer>마지막 업데이트: <time datetime="{updated_at.isoformat()}">{updated_label}</time><p>문의나 제안이 있다면 언제든 <a href="https://letterbird.co/kang">이메일 주세요</a>.</p></footer></html>''')
 
