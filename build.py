@@ -114,8 +114,8 @@ def main():
     feed_content = (
         '<h2>피드</h2>'
         + listing(sorted(all_posts.values(), reverse=True)[:100])
-        + '<section class="blog-directory" aria-labelledby="blogs-heading">'
-        + '<h2 id="blogs-heading">블로그 둘러보기</h2><ul class="authors">'
+        + '<section class="blog-directory" aria-label="블로그 목록">'
+        + '<ul class="authors">'
         + directory + '</ul></section>'
     )
     page("", "피드", feed_content, updated_at)
