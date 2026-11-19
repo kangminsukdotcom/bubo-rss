@@ -65,6 +65,7 @@ def page(path, title, content, updated_at):
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/style.css?v={STYLE_VERSION}">
 <header><h1><a href="/">모닥불 ♨️</a></h1><p><a href="https://jagunbae.com">작은배</a>가 모은 글 쓰는 이웃들.</p>
+<nav aria-label="주 메뉴"><a href="/">피드</a> · <a href="/about/">소개</a></nav>
 </header><main>{content}</main>
 <footer>마지막 업데이트: <time datetime="{updated_at.isoformat()}">{updated_label}</time><p>문의나 제안이 있다면 언제든 <a href="https://letterbird.co/kang">이메일 주세요</a>.</p></footer></html>''')
 
@@ -110,7 +111,15 @@ def main():
         blogs.append((name, anchor(author(url),name)))
     directory = ''.join(f'<li>{a}</li>' for _,a in sorted(blogs))
     (OUT / "blogs" / "index.html").unlink(missing_ok=True)
-    page("", "피드", '<h2>피드</h2><details><summary>블로그 둘러보기</summary><ul class="authors">'+directory+'</ul></details>'+listing(sorted(all_posts.values(), reverse=True)[:100]), updated_at)
+    feed_content = (
+        '<h2>피드</h2>'
+        + listing(sorted(all_posts.values(), reverse=True)[:100])
+        + '<section class="blog-directory" aria-labelledby="blogs-heading">'
+        + '<h2 id="blogs-heading">블로그 둘러보기</h2><ul class="authors">'
+        + directory + '</ul></section>'
+    )
+    page("", "피드", feed_content, updated_at)
+    page("about", "소개", Path("about.html").read_text(), updated_at)
     (OUT/"style.css").write_bytes(Path("style.css").read_bytes())
     (OUT/"CNAME").write_text("blogs.jagunbae.com\n")
     CACHE.write_text(json.dumps({u:saved[u] for u in authors if u in saved}, ensure_ascii=False,indent=1)+'\n')
